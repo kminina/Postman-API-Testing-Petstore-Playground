@@ -1,0 +1,332 @@
+{
+	"info": {
+		"_postman_id": "47a38f30-4c78-46a8-a377-a9e9a6dc8165",
+		"name": "Petstore Playground Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27816084",
+		"_collection_link": "https://www.postman.com/galactic-escape-68749/workspace/interview-workspace/collection/27816084-47a38f30-4c78-46a8-a377-a9e9a6dc8165?action=share&creator=27816084&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "Post a new pet",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 800ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(800);",
+							"});",
+							"",
+							"var responseJson = pm.response.json();",
+							"pm.environment.set('petID', responseJson.id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": 4646,\n  \"name\": \"Alex\",\n  \"category\": {\n    \"id\": 1,\n    \"name\": \"Dogs\"\n  },\n  \"photoUrls\": [\n    \"string\"\n  ],\n  \"tags\": [\n    {\n      \"id\": 0,\n      \"name\": \"string\"\n    }\n  ],\n  \"status\": \"available\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://petstore3.swagger.io/api/v3/pet",
+					"protocol": "https",
+					"host": [
+						"petstore3",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"api",
+						"v3",
+						"pet"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find a pet by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 800ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(800);",
+							"});",
+							"",
+							"pm.test(\"Pet name is correct\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.name).to.eql(\"Alex\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://petstore3.swagger.io/api/v3/pet/{{petID}}",
+					"protocol": "https",
+					"host": [
+						"petstore3",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"api",
+						"v3",
+						"pet",
+						"{{petID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update pet profile: pic, tag, status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 800ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(800);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": 4646,\n  \"name\": \"Alex\",\n  \"category\": {\n    \"id\": 1,\n    \"name\": \"Dogs\"\n  },\n  \"photoUrls\": [\n    \"https://www.ukpets.com/oc-content/uploads/breeds/0/6413.jpg\"\n  ],\n  \"tags\": [\n    {\n      \"id\": 444,\n      \"name\": \"sausage\"\n    }\n  ],\n  \"status\": \"Good boy\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://petstore3.swagger.io/api/v3/pet",
+					"protocol": "https",
+					"host": [
+						"petstore3",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"api",
+						"v3",
+						"pet"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check pet profile",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 800ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(800);",
+							"});",
+							"",
+							"pm.test(\"Pet name is correct\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.name).to.eql(\"Alex\");",
+							"});",
+							"",
+							"pm.test(\"Pet status has been changed\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(\"Good boy\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://petstore3.swagger.io/api/v3/pet/{{petID}}",
+					"protocol": "https",
+					"host": [
+						"petstore3",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"api",
+						"v3",
+						"pet",
+						"{{petID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find pets by tag",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 800ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(800);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://petstore3.swagger.io/api/v3/pet/findByTags?tags=sausage",
+					"protocol": "https",
+					"host": [
+						"petstore3",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"api",
+						"v3",
+						"pet",
+						"findByTags"
+					],
+					"query": [
+						{
+							"key": "tags",
+							"value": "sausage"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete pet profile",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 800ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(800);",
+							"}) "
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://petstore3.swagger.io/api/v3/pet/{{petID}}",
+					"protocol": "https",
+					"host": [
+						"petstore3",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"api",
+						"v3",
+						"pet",
+						"{{petID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Confirm deletion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 800ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(800);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://petstore3.swagger.io/api/v3/pet/{{petID}}",
+					"protocol": "https",
+					"host": [
+						"petstore3",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"api",
+						"v3",
+						"pet",
+						"{{petID}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
