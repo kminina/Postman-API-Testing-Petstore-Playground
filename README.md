@@ -1,4 +1,4 @@
-# -Postman-API-Testing-Pet-Store-API-Playground
+# -Postman-API-Testing-Petstore-API-Playground
 
 This document serves as a short guide to my Postman collection designed for testing the Swagger Pet Store API playground. The goal of this project was to ensure the reliability of various API endpoints, which enable the following key functionalities:
 - Creation of new pet profiles;
